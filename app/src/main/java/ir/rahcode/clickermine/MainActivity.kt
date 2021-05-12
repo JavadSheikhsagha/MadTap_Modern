@@ -10,11 +10,12 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import ir.rahcode.clickermine.WinnerEnum.*
 
 class MainActivity : AppCompatActivity() {
 
     val ANIM_DURATION = 100F
-    var winner = WinnerEnum.Continue
+    var winner = Continue
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,26 +28,22 @@ class MainActivity : AppCompatActivity() {
         val rel2 = findViewById<RelativeLayout>(R.id.rel2)
 
         rel1.setOnClickListener {
-
             clickedAnimate(rel1,rel2)
-
-            when(winner){
-                WinnerEnum.Win1-> Toast.makeText(applicationContext, "1 won", Toast.LENGTH_SHORT).show()
-                WinnerEnum.Win2-> Toast.makeText(applicationContext, "2 won", Toast.LENGTH_SHORT).show()
-                WinnerEnum.Continue-> ""
-            }
+            checkWinner()
         }
 
         rel2.setOnClickListener {
-
             clickedAnimate(rel2,rel1)
+            checkWinner()
+        }
+    }
 
-            when(winner){
-                WinnerEnum.Win1-> Toast.makeText(applicationContext, "1 won", Toast.LENGTH_SHORT).show()
-                WinnerEnum.Win2-> Toast.makeText(applicationContext, "2 won", Toast.LENGTH_SHORT).show()
-                //WinnerEnum.Continue-> Toast.makeText(applicationContext, "Continue", Toast.LENGTH_SHORT).show()
-                WinnerEnum.Continue -> ""
-            }
+    fun checkWinner(){
+
+        when(winner){
+            Win1 -> Toast.makeText(applicationContext, "1 won", Toast.LENGTH_SHORT).show()
+            Win2 -> Toast.makeText(applicationContext, "2 won", Toast.LENGTH_SHORT).show()
+            Continue -> {}
         }
     }
 
@@ -69,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         animator2.start()
 
         if (up.weight > .95F){
-            winner = WinnerEnum.Win1
+            winner = Win1
             val objectWrapper11 = ViewWeightAnimationWrapper(view1)
             val animator11 = ObjectAnimator
                 .ofFloat(objectWrapper11,"weight",objectWrapper11.weight,1F)
